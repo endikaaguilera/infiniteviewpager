@@ -49,9 +49,13 @@ A Custom `ViewPager` Library for `Android`.
 # Usage
 
 ## Requirements:
+
 - Replace
 	- `ViewPager` to `CustomViewPager`
 	- `PagerAdapter` to `CustomPagerAdapter`
+	
+- Optional
+	- `Fragment` must extend `CustomFragment` when using callbacks for (first and last helper pages)
     
 ## XML
 ```xml
