@@ -1,5 +1,5 @@
 # Notice
-Work in progress.
+Work in progress and undocummented atm.
 
 # InfiniteViewPager
 A Custom ViewPager Library for Android.
@@ -29,3 +29,11 @@ private void initCustomViewPager() {
     viewPager.setCurrentItem(0);
 }
 ```
+
+# Art
+
+## Infinite Scroll
+![screen](../master/art/infinite_scroll.gif)
+
+## Indicator Click
+![screen](../master/art/indicators_click.gif)
