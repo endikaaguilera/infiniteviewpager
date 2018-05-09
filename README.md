@@ -91,7 +91,7 @@ private void initCustomViewPager() {
   - AutoScroll to selected item when needed.
   - Customization. 
     - Size.
-    - Position.
+    - Position. (x4)
     - Height Adjust Modes. (x3)
     - Max items per row.
     - Colors and/or Drawable.
