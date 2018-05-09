@@ -2,7 +2,7 @@
 Work in progress and pending to properly document.
 
 # InfiniteViewPager
-A Custom ViewPager Library for Android.
+A Custom `ViewPager` Library for Android.
 
 # Features
   - Infinite Pages (from first to last and vice versa) 
@@ -14,7 +14,7 @@ A Custom ViewPager Library for Android.
 
 ## Gradle
 
-- Step 1. Add the JitPack repository to your build file. Add it in your root build.gradle at the end of repositories:
+- Step 1. Add the JitPack repository to your build file. Add it in your root `build.gradle` at the end of repositories:
 ```
   allprojects {
     repositories {
@@ -49,6 +49,11 @@ A Custom ViewPager Library for Android.
 
 # Usage
 
+## Requirements:
+- Replace
+	- `ViewPager` to `CustomViewPager`
+	- `PagerAdapter` to `CustomPagerAdapter`
+    
 ## XML
 ```xml
 <com.customviewpager.viewpager.CustomViewPager
