@@ -1,0 +1,15 @@
+<resources>
+
+    <!-- Base library theme. -->
+    <style name="PagerIndicators">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:overScrollMode">never</item>
+        <item name="android:paddingBottom">@dimen/indicator_vertical_padding</item>
+        <item name="android:paddingTop">@dimen/indicator_vertical_padding</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+</resources>
