@@ -10,6 +10,43 @@ A Custom ViewPager Library for Android.
   - Single Page Supported
   - 
   
+# Download
+
+## Gradle
+
+- Step 1. Add the JitPack repository to your build file. Add it in your root build.gradle at the end of repositories:
+```
+  allprojects {
+    repositories {
+      ...
+      maven { url 'https://jitpack.io' }
+    }
+  }
+```
+
+- Step 2. Add the dependency
+```
+  dependencies {
+            implementation 'com.github.EndikaAguilera:InfiniteViewPager:v1.0-beta.1'
+  }
+```
+
+## Maven
+- Step 1. Add the JitPack repository to your build file.
+```
+  dependencies {
+            implementation 'com.github.EndikaAguilera:InfiniteViewPager:v1.0-beta.1'
+  }
+```
+- Step 2. Add the dependency
+```
+	<dependency>
+	    <groupId>com.github.EndikaAguilera</groupId>
+	    <artifactId>InfiniteViewPager</artifactId>
+	    <version>v1.0-beta.1</version>
+	</dependency>
+```
+
 # Usage
 
 ## XML
