@@ -7,6 +7,8 @@ A Custom ViewPager Library for Android.
 # Features
   - Infinite Pages (from first to last and vice versa) 
   - Page Indicators
+  - Single Page Supported
+  - 
   
 # Usage
 
@@ -72,17 +74,17 @@ private void initCustomViewPager() {
     - MODE_CLAMPED_HEIGHT       // from 1 to maxVisibleIndicatorRows
 ```
 
-# Indicators Cutomization
+## Indicators Cutomization
 You can override any of the following resouces as desired.
 
-## Colors
+### Colors
 ```java
     <color name="indicatorNormal">YOUR_COLOR</color>
     <color name="indicatorPressed">YOUR_COLOR</color>
     <color name="indicatorSelected">YOUR_COLOR</color>
 ```
 
-## Dimens
+### Dimens
 ```java
     <dimen name="indicator_vertical_padding">YOUR_VALUE</dimen>
     <dimen name="indicator_horizontal_margin">YOUR_VALUE</dimen>
@@ -90,10 +92,11 @@ You can override any of the following resouces as desired.
     <dimen name="indicator_item_padding">YOUR_VALUE</dimen>
 ```
 
-## Drawable
+### Drawable
 ```java
     ic_indicator.xml
 ```
+
 
 # Art
 
