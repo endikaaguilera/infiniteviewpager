@@ -2,13 +2,12 @@
 Work in progress and pending to properly document.
 
 # InfiniteViewPager
-A Custom `ViewPager` Library for Android.
+A Custom `ViewPager` Library for `Android`.
 
 # Features
   - Infinite Pages (from first to last and vice versa) 
   - Page Indicators
   - Single Page Supported
-  - 
   
 # Download
 
