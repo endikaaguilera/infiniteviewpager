@@ -1,5 +1,5 @@
 # Notice
-Work in progress and undocummented atm.
+Work in progress and pending to properly document.
 
 # InfiniteViewPager
 A Custom ViewPager Library for Android.
@@ -11,7 +11,7 @@ A Custom ViewPager Library for Android.
 # Usage
 
 ## XML
-```java
+```
 <com.customviewpager.viewpager.CustomViewPager
     android:id="@+id/container"
     android:layout_width="0dp"
