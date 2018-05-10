@@ -19,6 +19,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.customviewpager.indicator.CustomIndicator;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 public class CustomViewPager extends ViewPager
         implements IndicatorsRecyclerViewAdapter.IndicatorCallbacks {
 
-//    private static final String TAG = "CustomViewPager";
+    private static final String TAG = "CustomViewPager";
 //    private static final boolean DEBUG = true;
 
     /**
@@ -239,7 +240,9 @@ public class CustomViewPager extends ViewPager
     public void setAdapter(@Nullable PagerAdapter adapter) {
         if (adapter == null) return;
         String msg = "PagerAdapter Not Implemented! " +
-                "Please use (CustomPagerAdapter.java:17) instead.";
+                "Please make sure to use " +
+                "(CustomViewPager.java) instead of (ViewPager.java) and " +
+                "(CustomPagerAdapter.java) instead of (PagerAdapter.java).";
         throw new RuntimeException(msg);
     }
 
@@ -454,7 +457,11 @@ public class CustomViewPager extends ViewPager
     //todo test this with any kind of parent as View ??
     public void initViewPagerIndicators(Context context, ConstraintLayout parent) {
 
-        if (context == null) return;
+        if (context == null || parent == null) {
+            Log.e(TAG, "Can NOT init CustomViewPager's Indicators. " +
+                    "Context and/or ConstraintLayout are null");
+            return;
+        }
 
         mCustomIndicator = new CustomIndicator(context, parent, this);
 
