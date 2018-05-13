@@ -81,7 +81,7 @@ private void initCustomViewPager() {
     CustomViewPager viewPager = findViewById(R.id.YOUR_CUSTOM_VIEW_PAGER_ID);
     viewPager.setAdapter(adapter);
 
-    // Set up the ViewPager Indicators. Note the requires a ConstraintLayout as parent.
+    // Set up the ViewPager Indicators. Note that requires a ConstraintLayout as parent.
     ConstraintLayout parentContainer = findViewById(R.id.YOUR_PARENT_CONSTRAINT_LAYOUT);
     viewPager.initViewPagerIndicators(context, parentContainer);
     final int maxIndicatorRows = 2;
