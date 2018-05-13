@@ -1,7 +1,7 @@
-package com.thisobeystudio.infiniteviewpager.demo;
+package com.thisobeystudio.infiniteviewpager.basicdemo;
 
 /*
- * Created by thisobeystudio on 4/5/18.
+ * Created by thisobeystudio on 10/5/18.
  * Copyright: (c) 2018 ThisObey Studio
  * Contact: thisobeystudio@gmail.com
  */
@@ -17,27 +17,25 @@ import com.customviewpager.viewpager.CustomPagerAdapter;
  */
 public class SectionsPagerAdapter extends CustomPagerAdapter {
 
-    private int mCount;
+    private final int[] mDemoColors;
 
-    public SectionsPagerAdapter(FragmentManager fm, int count) {
+    SectionsPagerAdapter(FragmentManager fm, int[] demoColors) {
         super(fm);
-        this.mCount = count;
+        this.mDemoColors = demoColors;
     }
 
     @Override
     public Fragment getItem(CustomIndexHelper customIndexHelper) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment.
-        return PlaceholderFragment.newInstance(customIndexHelper);
+        return PlaceholderFragment.newInstance(customIndexHelper, mDemoColors[customIndexHelper.getDataPosition()]);
     }
 
     // determines the real number of 'unique' pages, (first and last are duplicated)
     @Override
     public int getRealCount() {
-        return mCount;
+        if (mDemoColors == null) return 0;
+        return mDemoColors.length;
     }
 
-    public void setCount(int mCount) {
-        this.mCount = mCount;
-    }
 }

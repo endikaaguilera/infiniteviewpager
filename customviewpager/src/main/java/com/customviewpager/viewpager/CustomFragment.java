@@ -9,7 +9,9 @@ package com.customviewpager.viewpager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-// todo add java docs
+/**
+ * A Simple {@link Fragment} to be used as 'root' when using {@link CustomViewPagerCallbacks}
+ */
 public abstract class CustomFragment extends Fragment implements CustomViewPagerCallbacks {
 
     /**
@@ -17,14 +19,10 @@ public abstract class CustomFragment extends Fragment implements CustomViewPager
      */
     protected static final String ARG_CUSTOM_INDEX_HELPER = "custom_index_helper";
 
-    private CustomIndexHelper mCustomIndexHelper = null;
+    protected CustomIndexHelper mCustomIndexHelper = null;
 
     public CustomFragment() {
     }
-
-//    protected CustomIndexHelper getCustomIndexHelper() {
-//        return mCustomIndexHelper;
-//    }
 
     protected void setCustomIndexHelper(Bundle args) {
         if (args == null || !args.containsKey(ARG_CUSTOM_INDEX_HELPER)) return;
@@ -39,5 +37,21 @@ public abstract class CustomFragment extends Fragment implements CustomViewPager
     protected int getDataIndex() {
         if (mCustomIndexHelper == null) return 0;
         return mCustomIndexHelper.getDataPosition();
+    }
+
+    protected boolean isHelperFirst() {
+        return mCustomIndexHelper != null && mCustomIndexHelper.isHelperFirst();
+    }
+
+    protected boolean isRealFirst() {
+        return mCustomIndexHelper != null && mCustomIndexHelper.isRealFirst();
+    }
+
+    protected boolean isHelperLast() {
+        return mCustomIndexHelper != null && mCustomIndexHelper.isHelperLast();
+    }
+
+    protected boolean isRealLast() {
+        return mCustomIndexHelper != null && mCustomIndexHelper.isRealLast();
     }
 }

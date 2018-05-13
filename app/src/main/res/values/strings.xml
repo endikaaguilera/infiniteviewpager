@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">InfiniteViewPager</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">Demo</string>
     <string name="long_text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
         Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
         dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,
@@ -18,9 +17,11 @@
         Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed
         fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo
         eget bibendum sodales, augue velit cursus nunc.</string>
-    <string name="demo_checkbox">Demo CheckBox</string>
-    <string name="action_remove">Remove page</string>
-    <string name="action_add">Add page</string>
+    <string name="page_index">Page index:</string>
+    <string name="basic_demo">Basic Demo</string>
+    <string name="indicators_demo">Indicators Demo</string>
+    <string name="scrollable_demo">Scrollable Demo</string>
+    <string name="complex_demo">Complex Demo</string>
 
     <!-- Strings related to Settings -->
 

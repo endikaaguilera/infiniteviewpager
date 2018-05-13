@@ -1,5 +1,11 @@
 package com.customviewpager.indicator;
 
+/*
+ * Created by thisobeystudio on 9/5/18.
+ * Copyright: (c) 2018 ThisObey Studio
+ * Contact: thisobeystudio@gmail.com
+ */
+
 import android.content.Context;
 import android.support.annotation.DimenRes;
 import android.support.constraint.ConstraintLayout;
@@ -7,22 +13,15 @@ import android.support.constraint.ConstraintSet;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.transition.TransitionManager;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 
-import com.customviewpager.viewpager.CustomViewPager;
 import com.customviewpager.R;
+import com.customviewpager.viewpager.CustomViewPager;
 
-/**
- * Created by thisobeystudio on 9/5/18.
- * Copyright: (c) 2018 ThisObey Studio
- * Contact: thisobeystudio@gmail.com
- */
+@SuppressWarnings("WeakerAccess")
 public class CustomIndicator {
 
     private static final String TAG = "CustomIndicator";
@@ -32,17 +31,9 @@ public class CustomIndicator {
     private RecyclerView mRecyclerView;
 
     // if mIndicatorsHeightMode is set to WRAP, this param will be ignored.
-    public int mMaxVisibleIndicatorRows = 2;
+    private int mMaxVisibleIndicatorRows = 1;
 
-    public void setMaxVisibleIndicatorRows(int maxVisibleIndicatorRows) {
-        this.mMaxVisibleIndicatorRows = maxVisibleIndicatorRows;
-    }
-
-    public int getMaxVisibleIndicatorRows() {
-        return this.mMaxVisibleIndicatorRows;
-    }
-
-    private int mIndicatorsPositionMode = POSITION_INCLUDE_BOTTOM;
+    private int mIndicatorsPositionMode = POSITION_FLOAT_BOTTOM;
     private int mIndicatorsAdjustMode = MODE_CLAMPED_HEIGHT;
 
     public void setIndicatorsMode(int indicatorsPositionMode, int indicatorsAdjustMode) {
@@ -50,15 +41,22 @@ public class CustomIndicator {
         this.mIndicatorsAdjustMode = indicatorsAdjustMode;
     }
 
+    // region CustomIndicator Options Public Params
+
+    // not using enums
     public static final int POSITION_FLOAT_TOP = 0;
     public static final int POSITION_FLOAT_BOTTOM = 1;
     public static final int POSITION_INCLUDE_TOP = 2;
     public static final int POSITION_INCLUDE_BOTTOM = 3;
 
-    // not using enums
-    public static final int MODE_WRAP_HEIGHT = 4;       // from 1 to infinite based on rows count
-    public static final int MODE_FIXED_HEIGHT = 5;      // itemHeight * (margin * 2) * maxVisibleIndicatorRows
-    public static final int MODE_CLAMPED_HEIGHT = 6;    // from 1 to maxVisibleIndicatorRows
+    // from 1 to infinite based on rows count
+    public static final int MODE_WRAP_HEIGHT = 4;
+    // itemHeight * (margin * 2) * maxVisibleIndicatorRows
+    public static final int MODE_FIXED_HEIGHT = 5;
+    // from 1 to maxVisibleIndicatorRows
+    public static final int MODE_CLAMPED_HEIGHT = 6;
+
+    // endregion CustomIndicator Options Public Params
 
     private final ConstraintLayout mParent;
 
@@ -115,11 +113,7 @@ public class CustomIndicator {
         // set recyclerView VISIBLE
         mRecyclerView.setVisibility(View.VISIBLE);
 
-
         calcItemsPerRow(context, viewPager, totalCount);
-
-//        setupConstraintLayout(context, parent);
-
     }
 
     private void calcItemsPerRow(final Context context,
@@ -134,11 +128,8 @@ public class CustomIndicator {
         viewPager.post(new Runnable() {
             @Override
             public void run() {
-                // Update SpanCount, if maxItemsPerRow is not bigger than 1 just return
-                // maxItemsPerRow will be set, based on:
-                // ViewPager.width, indicatorsItems.width and R.dimen.indicator_horizontal_margin
 
-                if (viewPager.getAdapter() == null || totalCount <= 1) {
+                if (viewPager.getAdapter() == null) {
                     return;
                 }
 
@@ -168,11 +159,6 @@ public class CustomIndicator {
         });
     }
 
-    public void updateSelection(int newSelection) {
-        mRecyclerView.scrollToPosition(newSelection);
-        if (mAdapter != null) mAdapter.updateSelection(newSelection);
-    }
-
     private void updateIndicatorsContainerHeight(final Context context,
                                                  final int indicatorItemSize,
                                                  final int totalCount,
@@ -180,10 +166,11 @@ public class CustomIndicator {
 
         if (context == null || mIndicatorsAdjustMode == MODE_WRAP_HEIGHT) return;
 
-        int height;
         ViewGroup.LayoutParams params = mRecyclerView.getLayoutParams();
+
         if (params == null) return;
 
+        int height;
         int padding = getDimension(context, R.dimen.indicator_vertical_padding) * 2;
 
         switch (mIndicatorsAdjustMode) {
@@ -213,140 +200,60 @@ public class CustomIndicator {
         return context.getResources().getDimensionPixelOffset(dimenID);
     }
 
-    private int getFixedIndicatorItemSize(Context context, int indicatorItemSize) {
-
-        if (context == null) return 12;
-
-        if (indicatorItemSize < 1) {
-            DisplayMetrics displayMetrics = new DisplayMetrics();
-
-            WindowManager windowmanager = (WindowManager) context.getApplicationContext()
-                    .getSystemService(Context.WINDOW_SERVICE);
-            if (windowmanager == null) {
-                return 12;
-            }
-
-            windowmanager.getDefaultDisplay().getMetrics(displayMetrics);
-
-            return Math.round(12 * displayMetrics.density);
-        }
-
-        return indicatorItemSize;
+    public void setIndicatorCallbacks(
+            IndicatorsRecyclerViewAdapter.IndicatorCallbacks indicatorCallbacks) {
+        if (mAdapter == null || indicatorCallbacks == null) return;
+        mAdapter.setIndicatorCallbacks(indicatorCallbacks);
     }
-
-    public IndicatorsRecyclerViewAdapter getAdapter() {
-        return mAdapter;
-    }
-
-    public void setIndicatorCallbacks(IndicatorsRecyclerViewAdapter.IndicatorCallbacks indicatorCallbacks) {
-        if (getAdapter() == null || indicatorCallbacks == null) return;
-        getAdapter().setIndicatorCallbacks(indicatorCallbacks);
-    }
-
-    public void notifyDataSetChanged() {
-        if (mAdapter == null) return;
-        mAdapter.notifyDataSetChanged();
-    }
-
-    public void setCount(Context context, ViewPager viewPager, int count) {
-        if (mAdapter == null) return;
-        calcItemsPerRow(context, viewPager, count);
-        mAdapter.setCount(count);
-        notifyDataSetChanged();
-    }
-
-    private void setupConstraintLayout(final Context context,
-                                       final ConstraintLayout parent) {
-
-        if (context == null || parent == null) return;
-
-        final ConstraintSet constraintSet = new ConstraintSet();
-
-
-        TransitionManager.beginDelayedTransition(parent);
-
-        final int margin = 0; // no margin to get full parent size
-
-        constraintSet.connect(mRecyclerView.getId(),
-                ConstraintSet.BOTTOM,
-                parent.getId(),
-                ConstraintSet.BOTTOM,
-                margin);
-
-        constraintSet.connect(mRecyclerView.getId(),
-                ConstraintSet.START,
-                parent.getId(),
-                ConstraintSet.START,
-                margin);
-
-        constraintSet.connect(mRecyclerView.getId(),
-                ConstraintSet.END,
-                parent.getId(),
-                ConstraintSet.END,
-                margin);
-
-        constraintSet.connect(mRecyclerView.getId(),
-                ConstraintSet.TOP,
-                parent.getId(),
-                ConstraintSet.TOP,
-                margin);
-
-
-        Log.i(TAG, "setupConstraintLayout");
-
-        constraintSet.applyTo(parent);
-
-    }
-
 
     private void updateConstraints(final ViewPager pager) {
 
         if (mRecyclerView == null || mParent == null || pager == null) return;
 
 
-        ConstraintSet constraintSet = new ConstraintSet();
-        constraintSet.clone(mParent);
-
+        ConstraintSet cs = new ConstraintSet();
+        cs.clone(mParent);
 
 //                TransitionManager.beginDelayedTransition(mParent);
 
-        connectConstraintToParent(constraintSet, ConstraintSet.START);
-        connectConstraintToParent(constraintSet, ConstraintSet.END);
+        connectConstraintToParent(cs, ConstraintSet.START);
+        connectConstraintToParent(cs, ConstraintSet.END);
 
-        constraintSet.centerHorizontally(mRecyclerView.getId(), pager.getId());
+        cs.centerHorizontally(mRecyclerView.getId(), pager.getId());
 //                constraintSet.centerVertically(mRecyclerView.getId(), parent.getId());
-        constraintSet.constrainWidth(mRecyclerView.getId(), mRecyclerView.getLayoutParams().width);
-        constraintSet.constrainHeight(mRecyclerView.getId(), mRecyclerView.getLayoutParams().height);
+        cs.constrainWidth(mRecyclerView.getId(), mRecyclerView.getLayoutParams().width);
+        cs.constrainHeight(mRecyclerView.getId(), mRecyclerView.getLayoutParams().height);
 //                constraintSet.setMargin(mRecyclerView.getId(), ConstraintSet.START, margin/2);
 
         switch (mIndicatorsPositionMode) {
             case POSITION_FLOAT_TOP:
-                connectConstraintToParent(constraintSet, ConstraintSet.TOP);
-                connectConstraint(constraintSet, pager, ConstraintSet.TOP);
+                connectConstraintToParent(cs, ConstraintSet.TOP);
+                connectConstraint(cs, pager, ConstraintSet.TOP);
                 break;
             case POSITION_FLOAT_BOTTOM:
-                connectConstraintToParent(constraintSet, ConstraintSet.BOTTOM);
-                connectConstraint(constraintSet, pager, ConstraintSet.BOTTOM);
+                connectConstraintToParent(cs, ConstraintSet.BOTTOM);
+                connectConstraint(cs, pager, ConstraintSet.BOTTOM);
                 break;
             case POSITION_INCLUDE_TOP:
-                connectConstraintToParent(constraintSet, ConstraintSet.TOP);
-                connectIndicatorsToPageTop(constraintSet, pager);
+                connectConstraintToParent(cs, ConstraintSet.TOP);
+                connectIndicatorsToPageTop(cs, pager);
                 break;
             case POSITION_INCLUDE_BOTTOM:
-                connectConstraintToParent(constraintSet, ConstraintSet.BOTTOM);
-                connectIndicatorsToPageBottom(constraintSet, pager);
+                connectConstraintToParent(cs, ConstraintSet.BOTTOM);
+                connectIndicatorsToPageBottom(cs, pager);
                 break;
             default:
-                // todo throw an error
+                Log.e(TAG, "CustomIndicators Position Mode not supported!" +
+                        " Please select a valid one.");
                 break;
         }
 
-        connectConstraint(constraintSet, pager, ConstraintSet.START);
-        connectConstraint(constraintSet, pager, ConstraintSet.END);
+        connectConstraint(cs, pager, ConstraintSet.START);
+        connectConstraint(cs, pager, ConstraintSet.END);
 
         mParent.addView(mRecyclerView);
 
-        constraintSet.applyTo(mParent);
+        cs.applyTo(mParent);
     }
 
     private void connectConstraintToParent(ConstraintSet constraintSet, int position) {
@@ -376,4 +283,24 @@ public class CustomIndicator {
                 ConstraintSet.BOTTOM,
                 0);
     }
+
+    // region Public Methods
+
+    public void setMaxVisibleIndicatorRows(int maxVisibleIndicatorRows) {
+        this.mMaxVisibleIndicatorRows = maxVisibleIndicatorRows;
+    }
+
+    public void setCount(Context context, ViewPager viewPager, int count) {
+        if (mAdapter == null) return;
+        calcItemsPerRow(context, viewPager, count);
+        mAdapter.swapData(count);
+    }
+
+    public void updateSelection(int newSelection) {
+        if (mRecyclerView == null || mAdapter == null) return;
+        mRecyclerView.scrollToPosition(newSelection);
+        mAdapter.updateSelection(newSelection);
+    }
+
+    // endregion Public Methods
 }

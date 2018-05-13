@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#515151"
+    android:fitsSystemWindows="true"
+    tools:ignore="Overdraw">
+
+    <!-- overScrollMode must be set as 'never' -->
+    <com.customviewpager.viewpager.CustomViewPager
+        android:id="@+id/custom_view_pager"
+        style="@style/CustomViewPager" />
+
+</android.support.constraint.ConstraintLayout>

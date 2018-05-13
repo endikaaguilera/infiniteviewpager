@@ -1,5 +1,11 @@
 package com.customviewpager.indicator;
 
+/*
+ * Created by thisobeystudio on 9/5/18.
+ * Copyright: (c) 2018 ThisObey Studio
+ * Contact: thisobeystudio@gmail.com
+ */
+
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,11 +16,6 @@ import android.widget.ImageView;
 
 import com.customviewpager.R;
 
-/**
- * Created by thisobeystudio on 9/5/18.
- * Copyright: (c) 2018 ThisObey Studio
- * Contact: thisobeystudio@gmail.com
- */
 public class IndicatorsRecyclerViewAdapter extends
         RecyclerView.Adapter<IndicatorsRecyclerViewAdapter.IndicatorViewHolder> {
 
@@ -73,7 +74,7 @@ public class IndicatorsRecyclerViewAdapter extends
         });
     }
 
-    public void updateSelection(int newSelection) {
+    void updateSelection(int newSelection) {
         notifyItemChanged(mSelection);
         mSelection = newSelection;
         notifyItemChanged(mSelection);
@@ -86,12 +87,13 @@ public class IndicatorsRecyclerViewAdapter extends
     private IndicatorCallbacks mIndicatorCallbacks;
 
     // sets indicator click callback
-    public void setIndicatorCallbacks(IndicatorCallbacks callbacks) {
+    void setIndicatorCallbacks(IndicatorCallbacks callbacks) {
         this.mIndicatorCallbacks = callbacks;
     }
 
-    public void setCount(int count) {
-        this.mCount = count;
+    void swapData(int newCount) {
+        if (newCount < 0) newCount = 0;
+        mCount = newCount;
+        notifyDataSetChanged();
     }
-
 }

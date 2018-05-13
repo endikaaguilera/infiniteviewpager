@@ -11,16 +11,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity
-            android:name=".demo.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme">
-            <intent-filter>
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" >
+
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".basicdemo.BasicUsageActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".basicdemo.IndicatorsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".scrollabledemo.ScrollableActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".complexdemo.ComplexActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

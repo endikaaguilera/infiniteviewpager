@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/indicator_item"
-    style="@style/PagerIndicators"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    tools:itemCount="1"
-    tools:listitem="@layout/indicator_item"
-    tools:orientation="horizontal"
-    tools:visibility="visible" />
+    android:id="@+id/indicators_view"
+    style="@style/IndicatorsContainer" />

@@ -6,7 +6,9 @@ package com.customviewpager.viewpager;
  * Contact: thisobeystudio@gmail.com
  */
 
-// todo add java docs
+/**
+ * A simple interface to share data between real and helper pages.
+ */
 public interface CustomViewPagerCallbacks {
     Object getPageData();
 

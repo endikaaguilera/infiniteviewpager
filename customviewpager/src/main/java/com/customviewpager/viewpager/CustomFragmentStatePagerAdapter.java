@@ -27,15 +27,6 @@ import java.util.ArrayList;
  * saving and restoring of fragment's state.
  * </p>
  * <p>
- * This version of the pager is more useful when there are a large number
- * of pages, working more like a list view.  When pages are not visible to
- * the user, their entire fragment may be destroyed, only keeping the saved
- * state of that fragment.  This allows the pager to hold on to much less
- * memory associated with each visited page as compared to
- * {@link CustomFragmentStatePagerAdapter} at the cost of potentially more overhead when
- * switching between pages.
- * </p>
- * <p>
  * When using FragmentPagerAdapter the host ViewPager must have a
  * valid ID set.
  * </p>
@@ -44,9 +35,8 @@ import java.util.ArrayList;
  * and {@link #getRealCount()} to have a working adapter.
  * </p>
  */
-
-// todo add java docs
 public abstract class CustomFragmentStatePagerAdapter extends PagerAdapter {
+
     private static final String TAG = "FragmentStatePagerAdapt";
     private static final boolean DEBUG = false;
 
@@ -94,8 +84,17 @@ public abstract class CustomFragmentStatePagerAdapter extends PagerAdapter {
             mCurTransaction = mFragmentManager.beginTransaction();
         }
 
-        CustomIndexHelper customIndexHelper =
-                new CustomIndexHelper(position, getRealPosition(position));
+        final boolean isRealFirst = isRealFirst(position);
+        final boolean isRealLast = isRealLast(position);
+        final boolean isHelperFirst = isHelperFirst(position);
+        final boolean isHelperLast = isHelperLast(position);
+
+        CustomIndexHelper customIndexHelper = new CustomIndexHelper(position,
+                getRealPosition(position),
+                isRealFirst,
+                isRealLast,
+                isHelperFirst,
+                isHelperLast);
 
         Fragment fragment = getItem(customIndexHelper);
         if (DEBUG) Log.v(TAG, "Adding item #" + position + ": f=" + fragment);
@@ -256,8 +255,23 @@ public abstract class CustomFragmentStatePagerAdapter extends PagerAdapter {
         return pagerPosition - 1;
     }
 
-    public ArrayList<Fragment> getFragments() {
+    ArrayList<Fragment> getFragments() {
         return mFragments;
     }
 
+    private boolean isRealFirst(int index) {
+        return index == 1;
+    }
+
+    private boolean isRealLast(int index) {
+        return index == getCount() - 2;
+    }
+
+    private boolean isHelperFirst(int index) {
+        return index == getCount() - 1;
+    }
+
+    private boolean isHelperLast(int index) {
+        return index == 0;
+    }
 }

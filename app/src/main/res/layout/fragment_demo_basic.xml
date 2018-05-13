@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/basic_constraint_layout_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".basicdemo.PlaceholderFragment">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/demo_card_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/card_view_margin"
+        android:layout_marginStart="@dimen/card_view_margin"
+        android:layout_marginEnd="@dimen/card_view_margin"
+        android:layout_marginBottom="@dimen/card_view_bottom_margin"
+        android:clipChildren="true"
+        app:cardBackgroundColor="@android:color/holo_red_light"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="@dimen/cardview_default_elevation"
+        app:layout_constraintBottom_toBottomOf="@+id/basic_constraint_layout_container"
+        app:layout_constraintEnd_toEndOf="@+id/basic_constraint_layout_container"
+        app:layout_constraintStart_toStartOf="@+id/basic_constraint_layout_container"
+        app:layout_constraintTop_toTopOf="@+id/basic_constraint_layout_container">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/section_data_index_label"
+                android:layout_width="240dp"
+                android:layout_height="240dp"
+                android:layout_margin="12dp"
+                android:background="@drawable/bg_rounded_light"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center"
+                android:textColor="#4d4d4d"
+                android:textSize="148sp"
+                app:layout_constraintBottom_toTopOf="@+id/section_page_index_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="0" />
+
+            <TextView
+                android:id="@+id/section_page_index_background"
+                android:layout_width="200dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/bg_rounded"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/section_data_index_label" />
+
+            <TextView
+                android:id="@+id/section_page_sub_label"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center"
+                android:text="@string/page_index"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/section_page_index_background" />
+
+            <TextView
+                android:id="@+id/section_page_index_label"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/section_page_sub_label"
+                app:layout_constraintTop_toTopOf="@+id/section_page_sub_label"
+                tools:text="1" />
+
+            <TextView
+                android:id="@+id/bottom_container"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/activity_padding"
+                android:background="@drawable/bg_rounded_dark"
+                android:fontFamily="sans-serif-smallcaps"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/section_page_index_background" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="6dp"
+                android:layout_margin="36dp"
+                android:background="@drawable/bg_rounded_light"
+                app:layout_constraintBottom_toTopOf="@+id/deco_line_02"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/bottom_container" />
+
+            <TextView
+                android:id="@+id/deco_line_02"
+                android:layout_width="0dp"
+                android:layout_height="6dp"
+                android:layout_margin="36dp"
+                android:background="@drawable/bg_rounded_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/bottom_container"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/bottom_container" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="6dp"
+                android:layout_margin="36dp"
+                android:background="@drawable/bg_rounded_light"
+                app:layout_constraintBottom_toBottomOf="@+id/bottom_container"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deco_line_02"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+</android.support.constraint.ConstraintLayout>

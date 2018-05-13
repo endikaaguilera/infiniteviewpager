@@ -2,21 +2,58 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="demo.MainActivity">
+    tools:context=".MainActivity">
 
-    <com.customviewpager.viewpager.CustomViewPager
-        android:id="@+id/container"
+    <!-- overScrollMode must be set as 'never' -->
+    <Button
+        android:id="@+id/basic_btn"
+        android:layout_width="0dp"
+        android:background="#F44336"
+        android:layout_height="0dp"
+        android:text="@string/basic_demo"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toTopOf="@+id/scrollable_btn"
+        app:layout_constraintEnd_toStartOf="@+id/indicators_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/indicators_btn"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:overScrollMode="never"
+        android:text="@string/indicators_demo"
+        android:background="#3F51B5"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toTopOf="@+id/complex_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/basic_btn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/scrollable_btn"
+        android:background="#009688"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/scrollable_demo"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/complex_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/indicators_btn" />
+
+    <Button
+        android:id="@+id/complex_btn"
+        android:background="#FFEB3B"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/complex_demo"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/scrollable_btn"
+        app:layout_constraintTop_toBottomOf="@+id/indicators_btn" />
 
 </android.support.constraint.ConstraintLayout>

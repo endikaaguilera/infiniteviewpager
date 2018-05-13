@@ -9,10 +9,10 @@ package com.customviewpager.viewpager;
 import android.support.v4.app.FragmentManager;
 
 /**
- * A {@link CustomFragmentStatePagerAdapter} that returns a fragment corresponding to one of the pages.
+ * A {@link CustomFragmentStatePagerAdapter} that returns a fragment corresponding
+ * to one of the pages.
  */
 
-// todo add java docs
 public abstract class CustomPagerAdapter extends CustomFragmentStatePagerAdapter {
     protected CustomPagerAdapter(FragmentManager fm) {
         super(fm);

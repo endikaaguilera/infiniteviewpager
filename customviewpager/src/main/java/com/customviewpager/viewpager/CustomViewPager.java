@@ -6,10 +6,6 @@ package com.customviewpager.viewpager;
  * Contact: thisobeystudio@gmail.com
  */
 
-// todo add java docs
-// todo test if not using callback a normal fragment...
-// todo disable user interaction on helper pages (or) share data in both ways... from realFirst to helperFirst and viceversa
-
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,28 +13,22 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.customviewpager.indicator.CustomIndicator;
 import com.customviewpager.indicator.IndicatorsRecyclerViewAdapter;
 
 import java.util.ArrayList;
 
-// todo suggestion setOffscreenPageLimit(1) by default. Is the best option if using 'Editable' Views
 public class CustomViewPager extends ViewPager
         implements IndicatorsRecyclerViewAdapter.IndicatorCallbacks {
 
     private static final String TAG = "CustomViewPager";
-//    private static final boolean DEBUG = true;
 
-    /**
-     * A flag to determine if using {@link CustomViewPagerCallbacks} or not.
-     * <p>{@code default} is {@code true}
-     */
-    private boolean mUsingCallbacks = true;
+    // A flag to determine if using {@link CustomViewPagerCallbacks} or not.
+
+    private boolean mUsingCallbacks = false;
 
     /**
      * Set using {@link CustomViewPagerCallbacks},
@@ -46,7 +36,7 @@ public class CustomViewPager extends ViewPager
      * <p>Since we are duplicating real first and last pages,
      * this option should be enabled {@code true} if pages contains Interactive content such as:
      * <p>NestedScrollView, CheckBox, Spinner, EditText, etc...
-     * <p>
+     *
      * <p>Notice! That when {@code true} the placeholder Fragment must extend {@link CustomFragment}
      * , otherwise we will get a {@link ClassCastException}
      *
@@ -61,98 +51,22 @@ public class CustomViewPager extends ViewPager
      * @return {@code true} if using callbacks, {@code false} otherwise.
      * <p>{@code default} is {@code true}
      */
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    @SuppressWarnings({"BooleanMethodIsAlwaysInverted", "WeakerAccess"})
     public boolean isUsingCallbacks() {
         return mUsingCallbacks;
     }
 
     public CustomViewPager(@NonNull Context context) {
         super(context);
-        initCustomViewPager();
+        initCustomViewPagerOnPageChangeListener();
     }
 
     public CustomViewPager(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        initCustomViewPager();
+        initCustomViewPagerOnPageChangeListener();
     }
 
-    @Nullable
-    @Override
-    public CustomPagerAdapter getAdapter() {
-        return (CustomPagerAdapter) super.getAdapter();
-    }
-
-    // tested this, ACTION_UP, ACTION_MOVE anf ACTION_DOWN can be recognized, not tested all...
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//
-//        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-//            Toast.makeText(getContext(), "ACTION_DOWN", Toast.LENGTH_SHORT).show();
-//
-//            checkHelperFirstPage();
-//            checkHelperLastPage();
-//
-//            this.getParent().requestDisallowInterceptTouchEvent(true);
-//            super.performClick();
-//            return super.onTouchEvent(event);
-//        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-//
-//            Toast.makeText(getContext(), "ACTION_UP", Toast.LENGTH_SHORT).show();
-//
-//            checkHelperFirstPage();
-//            checkHelperLastPage();
-//
-//            this.getParent().requestDisallowInterceptTouchEvent(true);
-//            super.performClick();
-//            return super.onTouchEvent(event);
-//        } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-//
-//            Toast.makeText(getContext(), "ACTION_MOVE", Toast.LENGTH_SHORT).show();
-//
-//            Log.i("AAAATTTTTT", "ACTION_MOVE");
-//
-//            checkHelperFirstPage();
-//            checkHelperLastPage();
-//
-//            this.getParent().requestDisallowInterceptTouchEvent(true);
-//            super.performClick();
-//            return super.onTouchEvent(event);
-//        } else {
-//            return super.onTouchEvent(event);
-//        }
-//    }
-//
-//    @Override
-//    public boolean performClick() {
-//        return super.performClick();
-//    }
-////
-////    @Override
-////    public void setOnTouchListener(OnTouchListener l) {
-////        super.setOnTouchListener(l);
-////    }
-////
-////    @Override
-////    public boolean onTouchEvent(MotionEvent ev) {
-////        return false;
-////    }
-////
-////    @Override
-////    public boolean performClick() {
-////        return false;
-////    }
-////
-////    @Override
-////    public boolean onInterceptTouchEvent(MotionEvent ev) {
-////        return false;
-////    }
-
-    private void initCustomViewPager() {
-
-        // todo this might be important....
-        // todo force it to one!! create a checker and throw an exception if not ONE
-        setOffscreenPageLimit(1);// todo test this with higher values!!!
-
+    private void initCustomViewPagerOnPageChangeListener() {
         addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int posOffsetPixels) {
@@ -160,8 +74,7 @@ public class CustomViewPager extends ViewPager
 
             @Override
             public void onPageSelected(int position) {
-//                CustomViewPager.this.onPageSelected();
-                updateIndicatorPosition(getRealPosition(position));
+                updateIndicatorSelection(getRealPosition(position));
             }
 
             @Override
@@ -170,17 +83,15 @@ public class CustomViewPager extends ViewPager
             }
         });
 
-        if (getAdapter() != null) getAdapter().notifyDataSetChanged();// todo is this necessary??
-
     }
 
     // region OnPageChangeListener
 
-    private void onPageSelected() {
-        if (!isUsingCallbacks()) return;
-        updateHelperFirstPageData();
-        updateHelperLastPageData();
-    }
+//    private void onPageSelected() {
+//        if (!isUsingCallbacks()) return;
+//        updateHelperFirstPageData();
+//        updateHelperLastPageData();
+//    }
 
     // set pages
     private void onPageScrollStateChanged(int state) {
@@ -193,38 +104,45 @@ public class CustomViewPager extends ViewPager
 
     // endregion OnPageChangeListener
 
+    // region Pager Fragments
+
+    @SuppressWarnings("WeakerAccess")
     public ArrayList<Fragment> getFragments() {
         CustomPagerAdapter adapter = getAdapter();
         if (adapter == null) return null;
         return adapter.getFragments();
     }
 
+    @SuppressWarnings("WeakerAccess")
     public Fragment getFragment(int index) {
         ArrayList<Fragment> fragments = getFragments();
         if (fragments == null || index < 0 || index >= fragments.size()) return null;
         return fragments.get(index);
     }
 
+    @SuppressWarnings("unused")
     public Fragment getRealFirstFragment() {
         return getFragment(getRealFirstPageIndex());
     }
 
+    @SuppressWarnings("WeakerAccess")
     public Fragment getHelperFirstFragment() {
         return getFragment(getHelperFirstPageIndex());
     }
 
+    @SuppressWarnings("unused")
     public Fragment getRealLastFragment() {
         return getFragment(getRealLastPageIndex());
     }
 
+    @SuppressWarnings("WeakerAccess")
     public Fragment getHelperLastFragment() {
         return getFragment(getHelperLastPageIndex());
     }
 
-    // todo must check here that getCount and GetRealCount and x1 = (x2 + 2) osea que si un total es 10 el otro 12
-    // todo must check here that getCount and GetRealCount and x1 = (x2 + 2) osea que si un total es 10 el otro 12
-    // todo must check here that getCount and GetRealCount and x1 = (x2 + 2) osea que si un total es 10 el otro 12
-    // todo must check here that getCount and GetRealCount and x1 = (x2 + 2) osea que si un total es 10 el otro 12
+    // endregion Pager Fragments
+
+    @SuppressWarnings("WeakerAccess")
     public int getCount() {
         if (getRealCount() <= 0) return 0; // just return 0
         return getRealCount() + 2;
@@ -236,13 +154,20 @@ public class CustomViewPager extends ViewPager
         return adapter.getRealCount();
     }
 
+    @Nullable
+    @Override
+    public CustomPagerAdapter getAdapter() {
+        return (CustomPagerAdapter) super.getAdapter();
+    }
+
     @Override
     public void setAdapter(@Nullable PagerAdapter adapter) {
         if (adapter == null) return;
         String msg = "PagerAdapter Not Implemented! " +
                 "Please make sure to use " +
                 "(CustomViewPager.java) instead of (ViewPager.java) and " +
-                "(CustomPagerAdapter.java) instead of (PagerAdapter.java).";
+                "(CustomPagerAdapter.java) instead of " +
+                "(FragmentPagerAdapter.java or FragmentStatePagerAdapter.java).";
         throw new RuntimeException(msg);
     }
 
@@ -250,10 +175,12 @@ public class CustomViewPager extends ViewPager
         super.setAdapter(adapter);
     }
 
+    @SuppressWarnings("unused")
     public final boolean isFirstRealPageSelected() {
         return super.getCurrentItem() == getRealFirstPageIndex();
     }
 
+    @SuppressWarnings("unused")
     public final boolean isLastRealPageSelected() {
         return super.getCurrentItem() == getRealLastPageIndex();
     }
@@ -266,6 +193,7 @@ public class CustomViewPager extends ViewPager
         return super.getCurrentItem() == getHelperFirstPageIndex();
     }
 
+    @SuppressWarnings("SameReturnValue")
     private int getRealFirstPageIndex() {
         return 1;
     }
@@ -278,6 +206,7 @@ public class CustomViewPager extends ViewPager
         return getCount() - 1;
     }
 
+    @SuppressWarnings("SameReturnValue")
     private int getHelperLastPageIndex() {
         return 0;
     }
@@ -292,63 +221,35 @@ public class CustomViewPager extends ViewPager
         return mFirstPageData;
     }
 
-//    public void setFirstPageData(Object firstPageData) {
-//
-//        if (!isUsingCallbacks()) return;
-//
-//        mFirstPageData = firstPageData; // update data
-//
-//        Fragment firstFragment = getHelperFirstFragment();
-//
-//        if (firstFragment != null)
-//            mFirstPageCallbacks = (CustomFragment) firstFragment;
-//
-//        if (mFirstPageCallbacks != null && firstFragment != null) {
-//            if (mFirstPageCallbacks.getHelperFirstPageData() != mFirstPageData) {// todo use this if to avoid unnecessary usage ???
-//                mFirstPageCallbacks.setHelperFirstPageData(mFirstPageData);
-//            }
-//        }
-//        //setFirstPageData();
-//    }
-//
-//
-//    private void setFirstPageData() {
-//        Fragment firstFragment = getHelperFirstFragment();
-//
-//        if (firstFragment != null)
-//            mFirstPageCallbacks = (CustomFragment) firstFragment;
-//
-//        if (mFirstPageCallbacks != null && firstFragment != null) {
-//            Object data = getFirstPageData();
-//            if (mFirstPageCallbacks.getHelperFirstPageData() != data) {// todo use this if to avoid unnecessary usage ???
-//                mFirstPageCallbacks.setHelperFirstPageData(data);
-//            }
-//        }
-//    }
-
+    @SuppressWarnings("unused")
     public void clearPagesData() {
         clearFirstPageData();
         clearLastPageData();
     }
 
+    @SuppressWarnings("WeakerAccess")
     public void clearFirstPageData() {
         if (!isUsingCallbacks()) return;
         mFirstPageData = null;
     }
 
-    // todo this can be simplified passing page index or a boolean flag (isFirst)
-    public void setFirstPageData(CustomViewPagerCallbacks callbacks) {
-        //if (!isUsingCallbacks() || callbacks == null) return;
+    /**
+     * used to share data between first real page and first helper page.
+     * null are not allowed, if you want to set it as null pleas use
+     * {@link #clearFirstPageData()} or {@link #clearPagesData()} instead of passing null.
+     *
+     * @param callbacks source {@link CustomViewPagerCallbacks}
+     */
+    public void setFirstPageDataCallbacks(CustomViewPagerCallbacks callbacks) {
         if (!isUsingCallbacks() || callbacks == null || callbacks.getPageData() == null) return;
         mFirstPageData = callbacks.getPageData(); // update data
         updateHelperFirstPageData();
     }
 
+    @SuppressWarnings("WeakerAccess")
     public void updateHelperFirstPageData() {
-        if (mFirstPageData == null)             return;
-
+        if (mFirstPageData == null) return;
         Fragment firstHelperFragment = getHelperFirstFragment();
-        // todo catch ClassCastException ??
         if (firstHelperFragment != null) {
             CustomViewPagerCallbacks helperCallbacks = (CustomFragment) firstHelperFragment;
             helperCallbacks.setHelperPageData(mFirstPageData);
@@ -364,61 +265,34 @@ public class CustomViewPager extends ViewPager
         return mLastPageData;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public void clearLastPageData() {
         if (!isUsingCallbacks()) return;
         mLastPageData = null;
     }
 
-    public void setLastPageData(CustomViewPagerCallbacks callbacks) {
-        //if (!isUsingCallbacks() || callbacks == null) return;
+    /**
+     * used to share data between last real page and last helper page.
+     * null are not allowed, if you want to set it as null pleas use
+     * {@link #clearFirstPageData()} or {@link #clearPagesData()} instead of passing null.
+     *
+     * @param callbacks source {@link CustomViewPagerCallbacks}
+     */
+    public void setLastPageDataCallbacks(CustomViewPagerCallbacks callbacks) {
         if (!isUsingCallbacks() || callbacks == null || callbacks.getPageData() == null) return;
         mLastPageData = callbacks.getPageData(); // update data
         updateHelperLastPageData();
     }
 
+    @SuppressWarnings("WeakerAccess")
     public void updateHelperLastPageData() {
-        if (mLastPageData == null)             return;
-
+        if (mLastPageData == null) return;
         Fragment lastHelperFragment = getHelperLastFragment();
-        // todo catch ClassCastException ??
         if (lastHelperFragment != null) {
             CustomViewPagerCallbacks helperLastPageCallbacks = (CustomFragment) lastHelperFragment;
             helperLastPageCallbacks.setHelperPageData(mLastPageData);
         }
     }
-
-//    public void setLastPageData(Object lastPageData) {
-//
-//        if (!isUsingCallbacks()) return;
-//
-//        mLastPageData = lastPageData; // update data
-//
-//        CustomFragment lastFragment = (CustomFragment) getHelperLastFragment();
-//
-//        if (lastFragment != null)
-//            mLastPageCallbacks = lastFragment;
-//
-//        if (mLastPageCallbacks != null && lastFragment != null) {
-//            if (mLastPageCallbacks.getHelperLastPageData() != mLastPageData) {// todo use this if to avoid unnecessary usage ???
-//                mLastPageCallbacks.setHelperLastPageData(mLastPageData);
-//            }
-//        }
-//        //setLastPageData();
-//    }
-//
-//    public void setLastPageData() {
-//        Fragment lastFragment = getHelperLastFragment();
-//
-//        if (lastFragment != null)
-//            mLastPageCallbacks = (CustomFragment) lastFragment;
-//
-//        if (mLastPageCallbacks != null && lastFragment != null) {
-//            Object data = getLastPageData();
-//            if (mLastPageCallbacks.getHelperLastPageData() != data) {// todo use this if to avoid unnecessary usage ???
-//                mLastPageCallbacks.setHelperLastPageData(data);
-//            }
-//        }
-//    }
 
     // endregion Last Page Data
 
@@ -445,7 +319,6 @@ public class CustomViewPager extends ViewPager
         throw new RuntimeException(errMsg);
     }
 
-    // todo user must use getRealCurrentItem Instead of getCurrentItem()
     public int getRealCurrentItem() {
         return getRealPosition(super.getCurrentItem());
     }
@@ -454,12 +327,18 @@ public class CustomViewPager extends ViewPager
 
     private CustomIndicator mCustomIndicator;
 
-    //todo test this with any kind of parent as View ??
-    public void initViewPagerIndicators(Context context, ConstraintLayout parent) {
+    public void initIndicators(Context context) {
 
-        if (context == null || parent == null) {
+        if (context == null) {
+            Log.e(TAG, "Can NOT init CustomViewPager's Indicators. Context is null.");
+            return;
+        }
+
+        ConstraintLayout parent = (ConstraintLayout) getParent();
+
+        if (parent == null) {
             Log.e(TAG, "Can NOT init CustomViewPager's Indicators. " +
-                    "Context and/or ConstraintLayout are null");
+                    "Parent ConstraintLayout is null.");
             return;
         }
 
@@ -469,23 +348,35 @@ public class CustomViewPager extends ViewPager
         mCustomIndicator.setIndicatorCallbacks(this);
     }
 
-    public void setIndicatorsMode(int position, int adjustMode, int maxRows) {
-        if (mCustomIndicator == null) return;
-        mCustomIndicator.setIndicatorsMode(position, adjustMode);
-        mCustomIndicator.setMaxVisibleIndicatorRows(maxRows);
+    public void initIndicators(Context context, int position, int adjustMode) {
+        initIndicators(context);
+        setIndicatorsMode(position, adjustMode);
     }
 
+    public void initIndicators(Context context, int position, int adjustMode, int maxRows) {
+        initIndicators(context);
+        setIndicatorsMode(position, adjustMode, maxRows);
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    public void setIndicatorsMode(int position, int adjustMode, int maxRows) {
+        setIndicatorsMode(position, adjustMode);
+        setMaxVisibleIndicatorRows(maxRows);
+    }
+
+    @SuppressWarnings("WeakerAccess")
     public void setIndicatorsMode(int position, int adjustMode) {
         if (mCustomIndicator == null) return;
         mCustomIndicator.setIndicatorsMode(position, adjustMode);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public void setMaxVisibleIndicatorRows(int maxRows) {
         if (mCustomIndicator == null) return;
         mCustomIndicator.setMaxVisibleIndicatorRows(maxRows);
     }
 
-    private void updateIndicatorPosition(int position) {
+    private void updateIndicatorSelection(int position) {
         if (mCustomIndicator == null) return;
         mCustomIndicator.updateSelection(position);
     }
@@ -497,11 +388,7 @@ public class CustomViewPager extends ViewPager
 
     // endregion Indicators
 
-    private void showToast(String msg) {
-        if (TextUtils.isEmpty(msg) || getContext() == null) return;
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-    }
-
+    @SuppressWarnings("unused")
     public void notifyDataSetChanged() {
         CustomPagerAdapter adapter = getAdapter();
         if (adapter == null) return;
@@ -510,8 +397,16 @@ public class CustomViewPager extends ViewPager
         mCustomIndicator.setCount(getContext(), this, getRealCount());
     }
 
-//    private void showToast(String msg) {
-//        if (DEBUG && !TextUtils.isEmpty(msg))
-//            Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-//    }
+    @SuppressWarnings("unused")
+    public void showThreePages() {
+        int pages = 3;
+        int margin = 40;
+        int width = getResources().getDisplayMetrics().widthPixels;
+        int padding = width / pages + (margin * 2 / pages);
+        setClipChildren(true);
+        setClipToPadding(false);
+        setPadding(padding, margin, padding, margin);
+        setPageMargin(margin);
+    }
+
 }
