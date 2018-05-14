@@ -54,7 +54,7 @@ public class ComplexActivity extends AppCompatActivity {
         mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
 
         // Set initial selection
-        mViewPager.setCurrentItem(3);
+        mViewPager.setCurrentItem(0);
     }
 
 }

@@ -9,6 +9,9 @@ package com.thisobeystudio.infiniteviewpager.complexdemo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * This class will be used to share the required data between real and helper pages
+ */
 public class ComplexDataHelper implements Parcelable {
 
     private int posY;

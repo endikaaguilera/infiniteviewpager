@@ -19,7 +19,7 @@ public class SectionsPagerAdapter extends CustomPagerAdapter {
 
     private final int[] mDemoColors;
 
-    SectionsPagerAdapter(FragmentManager fm, int[] demoColors) {
+    public SectionsPagerAdapter(FragmentManager fm, int[] demoColors) {
         super(fm);
         this.mDemoColors = demoColors;
     }
