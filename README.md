@@ -26,7 +26,7 @@ A Custom `ViewPager` Library for `Android`.
 - Step 2. Add the dependency
 ```
   dependencies {
-            implementation 'com.github.EndikaAguilera:InfiniteViewPager:v1.0-beta.1'
+            implementation 'com.github.EndikaAguilera:InfiniteViewPager:v1.0-beta.3'
   }
 ```
 
@@ -34,7 +34,7 @@ A Custom `ViewPager` Library for `Android`.
 - Step 1. Add the JitPack repository to your build file.
 ```
   dependencies {
-            implementation 'com.github.EndikaAguilera:InfiniteViewPager:v1.0-beta.1'
+            implementation 'com.github.EndikaAguilera:InfiniteViewPager:v1.0-beta.3'
   }
 ```
 - Step 2. Add the dependency
@@ -142,11 +142,10 @@ You can override any of the following resouces as desired.
     ic_indicator.xml
 ```
 
-
 # Art
 
-## Infinite Scroll
-![screen](../master/art/infinite_scroll.gif)
-
-## Indicator Click
-![screen](../master/art/indicators_click.gif)
+<p float="left" align="middle">
+	<img src="https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/basic.gif" width="200" />
+	<img src="https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/indicators.gif" width="200" />
+	<img src="https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/scroll.gif" width="200" />
+</p>
