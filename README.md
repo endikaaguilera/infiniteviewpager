@@ -147,9 +147,5 @@ You can override any of the following resouces as desired.
 
 ## Basic
 ![ezgif com-optimize](https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/basic.gif)
-
-## Indicators
 ![ezgif com-optimize](https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/indicators.gif)
-
-## Scroll (using callbacks)
 ![ezgif com-optimize](https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/scroll.gif)
