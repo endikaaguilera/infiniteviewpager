@@ -129,9 +129,6 @@ public class PlaceholderFragment extends CustomFragment {
                         }
                     });
 
-            if (isRealFirst()) viewPager.setFirstPageDataCallbacks(this);
-            if (isRealLast()) viewPager.setLastPageDataCallbacks(this);
-
             isHelperFirst(viewPager);
             isHelperLast(viewPager);
         }
