@@ -144,7 +144,13 @@ You can override any of the following resouces as desired.
 
 # Art
 
-![alt-text-1](https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/basic.gif "title-1") ![alt-text-2](https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/indicators.gif "title-2")
+<p float="left" align="middle">
+  <img src="https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/basic.gif" width="100" />
+  <img src="https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/indicators.gif" width="100" /> 
+  <img src="https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/scroll.gif" width="100" />
+</p>
+
+![alt-text-1]( "title-1") ![alt-text-2](https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/indicators.gif "title-2")
 
 ## Basic
 ![ezgif com-optimize](https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/basic.gif)
