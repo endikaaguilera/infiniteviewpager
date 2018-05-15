@@ -146,6 +146,6 @@ You can override any of the following resouces as desired.
 # Art
 
 ## Basic
-![ezgif com-optimize](https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/basic.gif)
-![ezgif com-optimize](https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/indicators.gif)
+![alt-text-1][ezgif com-optimize](https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/basic.gif)
+![alt-text-2][ezgif com-optimize](https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/indicators.gif)
 ![ezgif com-optimize](https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/scroll.gif)
