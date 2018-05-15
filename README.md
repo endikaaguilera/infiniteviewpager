@@ -145,21 +145,7 @@ You can override any of the following resouces as desired.
 # Art
 
 <p float="left" align="middle">
-## Basic
-  <img src="https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/basic.gif" width="200" />
-## Indicators
-  <img src="https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/indicators.gif" width="200" />
-## Scroll (using callbacks)
-  <img src="https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/scroll.gif" width="200" />
+	<img src="https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/basic.gif" width="200" />
+	<img src="https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/indicators.gif" width="200" />
+	<img src="https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/scroll.gif" width="200" />
 </p>
-
-![alt-text-1]( "title-1") ![alt-text-2](https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/indicators.gif "title-2")
-
-## Basic
-![ezgif com-optimize](https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/basic.gif)
-
-## Indicators
-![ezgif com-optimize](https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/indicators.gif)
-
-## Scroll (using callbacks)
-![ezgif com-optimize](https://raw.githubusercontent.com/EndikaAguilera/MyReposAssets/master/infinite_view_pager/scroll.gif)
