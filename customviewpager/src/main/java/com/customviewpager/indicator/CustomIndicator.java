@@ -21,6 +21,8 @@ import android.view.ViewGroup;
 import com.customviewpager.R;
 import com.customviewpager.viewpager.CustomViewPager;
 
+import static android.support.constraint.ConstraintSet.*;
+
 @SuppressWarnings("WeakerAccess")
 public class CustomIndicator {
 
@@ -210,37 +212,33 @@ public class CustomIndicator {
 
         if (mRecyclerView == null || mParent == null || pager == null) return;
 
-
         ConstraintSet cs = new ConstraintSet();
         cs.clone(mParent);
 
-//                TransitionManager.beginDelayedTransition(mParent);
-
-        connectConstraintToParent(cs, ConstraintSet.START);
-        connectConstraintToParent(cs, ConstraintSet.END);
+//       TransitionManager.beginDelayedTransition(mParent);
 
         cs.centerHorizontally(mRecyclerView.getId(), pager.getId());
-//                constraintSet.centerVertically(mRecyclerView.getId(), parent.getId());
+//      constraintSet.centerVertically(mRecyclerView.getId(), parent.getId());
         cs.constrainWidth(mRecyclerView.getId(), mRecyclerView.getLayoutParams().width);
         cs.constrainHeight(mRecyclerView.getId(), mRecyclerView.getLayoutParams().height);
-//                constraintSet.setMargin(mRecyclerView.getId(), ConstraintSet.START, margin/2);
+//      constraintSet.setMargin(mRecyclerView.getId(), ConstraintSet.START, margin/2);
 
         switch (mIndicatorsPositionMode) {
             case POSITION_FLOAT_TOP:
-                connectConstraintToParent(cs, ConstraintSet.TOP);
-                connectConstraint(cs, pager, ConstraintSet.TOP);
+                connectIndicatorsToParent(cs, TOP);
+                connectIndicatorsToPager(cs, pager, TOP);
                 break;
             case POSITION_FLOAT_BOTTOM:
-                connectConstraintToParent(cs, ConstraintSet.BOTTOM);
-                connectConstraint(cs, pager, ConstraintSet.BOTTOM);
+                connectIndicatorsToParent(cs, BOTTOM);
+                connectIndicatorsToPager(cs, pager, BOTTOM);
                 break;
             case POSITION_INCLUDE_TOP:
-                connectConstraintToParent(cs, ConstraintSet.TOP);
-                connectIndicatorsToPageTop(cs, pager);
+                connectIndicatorsToParent(cs, TOP);
+                connectPagerTopToIndicatorsBottom(cs, pager);
                 break;
             case POSITION_INCLUDE_BOTTOM:
-                connectConstraintToParent(cs, ConstraintSet.BOTTOM);
-                connectIndicatorsToPageBottom(cs, pager);
+                connectIndicatorsToParent(cs, BOTTOM);
+                connectPagerBottomToIndicatorsTop(cs, pager);
                 break;
             default:
                 Log.e(TAG, "CustomIndicators Position Mode not supported!" +
@@ -248,40 +246,32 @@ public class CustomIndicator {
                 break;
         }
 
-        connectConstraint(cs, pager, ConstraintSet.START);
-        connectConstraint(cs, pager, ConstraintSet.END);
+        connectIndicatorsToPager(cs, pager, START);
+        connectIndicatorsToPager(cs, pager, END);
 
         mParent.addView(mRecyclerView);
 
         cs.applyTo(mParent);
     }
 
-    private void connectConstraintToParent(ConstraintSet constraintSet, int position) {
+    private void connectIndicatorsToParent(ConstraintSet constraintSet, int pos) {
         if (constraintSet == null) return;
-        constraintSet.connect(mRecyclerView.getId(), position, mParent.getId(), position, 0);
+        constraintSet.connect(mRecyclerView.getId(), pos, mParent.getId(), pos, 0);
     }
 
-    private void connectConstraint(ConstraintSet constraintSet, ViewPager pager, int position) {
+    private void connectIndicatorsToPager(ConstraintSet constraintSet, ViewPager pager, int pos) {
         if (constraintSet == null || pager == null) return;
-        constraintSet.connect(mRecyclerView.getId(), position, pager.getId(), position, 0);
+        constraintSet.connect(mRecyclerView.getId(), pos, pager.getId(), pos, 0);
     }
 
-    private void connectIndicatorsToPageBottom(ConstraintSet constraintSet, ViewPager pager) {
+    private void connectPagerTopToIndicatorsBottom(ConstraintSet constraintSet, ViewPager pager) {
         if (constraintSet == null || pager == null) return;
-        constraintSet.connect(pager.getId(),
-                ConstraintSet.BOTTOM,
-                mRecyclerView.getId(),
-                ConstraintSet.TOP,
-                0);
+        constraintSet.connect(pager.getId(), TOP, mRecyclerView.getId(), BOTTOM, 0);
     }
 
-    private void connectIndicatorsToPageTop(ConstraintSet constraintSet, ViewPager pager) {
+    private void connectPagerBottomToIndicatorsTop(ConstraintSet constraintSet, ViewPager pager) {
         if (constraintSet == null || pager == null) return;
-        constraintSet.connect(pager.getId(),
-                ConstraintSet.TOP,
-                mRecyclerView.getId(),
-                ConstraintSet.BOTTOM,
-                0);
+        constraintSet.connect(pager.getId(), BOTTOM, mRecyclerView.getId(), TOP, 0);
     }
 
     // region Public Methods
